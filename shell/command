@@ -47,4 +47,26 @@
   9、tail命令：
 	1、tail -n 5 file:打印文件的最后5行
 	2、tail -n -M file:打印前M行外的所有行
+ 10、grep命令小结:
+	1、grep "pattern" file1,file2,file3:对多个文件进行搜索，分别输出匹配到的
+	2、grep -c "pattern" file:输出匹配到的行数(非次数)
+	3、echo xxx  | grep -o "pattern" | wc -l：输出匹配到的次数
+	4、grep -n "pattern" file:输出包含匹配字符串的行号
+	5、grep -i "pattern" file:忽略大小写的匹配
+	6、grep -l "pattern" file:输出匹配文件位于哪个目录
+	7、grep "pattern" directory -r(-R) -n:对文本进行递归搜索
+	8、grep "pattern" directory -r --include *.{c,cpp}
+	9、grep "pattern" directory -r --exclude *.{c,cpp}
+       10、grep "pattern" file -lZ | xargs -0 rm:使用0值字节作为后缀的grep和xargs
+       11、echo xxx | grep "pattern" -A  NUM:输出匹配结果后的NUM行
+       12、echo xxx | grep "pattern" -B  NUM:输出匹配结果前的NUM行
+       13、echo xxx | grep "pattern" -C  NUM:输出匹配结果前后的NUM行
 
+ 11、cut命令:
+      指定定界符：
+	1、cut -f FIELD_LIST1,FIELD_LIST2  filename:提取多个字段或列
+	2、cut -f FIELD_LIST --complement filename:提取除FIELD_LIST以外的所有列
+	3、cut -d"delimiter":指定字段定界符
+      不指定定界符：
+	1、cut -c1-5 file:取出第一个字符至第五个字符
+	2、cut -c1-5,6-10 --output-delimiter " ":指定输出定界符
