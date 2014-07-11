@@ -1,5 +1,7 @@
 1.awk '{str[$1]=str[$1]" "$2} {for(var in str) print var" "str[var]' file
 ///////////////////典型的月经问题，注意$2不要写在双引号中////////////////
+注意:$1,2无需加双引号,否则会没有输出，需注意awk变量和shell变量值之间的传递。
+
 
 2.tcpdump命令小结：
  1、针对特定网口抓包：tcpdump -i eth0
@@ -31,6 +33,10 @@
   3、TMOUT(环境变量)：超过指定值即退出当前shell
   4、全局变量的设置：将变量存放在/etc/profile(~/.bashrc)中，然后export，这样即可在命令行或脚本中引用。
   5、单引号不会对变量名进行解析
+  6、${string/#(%)pattern/replacemet}:从字符开头处进行匹配替换
+  7、${test:-unset}和${test:unset}的区别  
+  8、执行删除文件命令时，必须先查看文件路径是否有值，如果没有值或者路径不正确，可能会导致灾难性的结果，因此在删除文件时最好先进行初值安全检查
+        find ${$PATH-/tmp} -type f print0 | xargs -0 rm -rf
 
 
 7、LINUX基础命令
