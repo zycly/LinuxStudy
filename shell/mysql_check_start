@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#数据库正常启动时端口有一个，进程有两个
+
+portnum=`netstat -lnt | grep 3306 | awk -F[ :]+ {print $5}`
+
+portnum=`netstat -lnt | grep 3306 | wc -l` 
+/////////此方法既试用于本地也适用于远程监控
+
+ps -ef | grep mysqld | grep -v grep | wc -l
+/////////此方法仅适用于本地监控，可能出现进程在，服务不正常的情况，如：负载过高，cpu很高，连接数满了
+
+手动杀数据库进程时，需不停killall直到看到有消息提示才表示进程已被杀死
+while :
+do
+	killall -9 mysqld &> /dev/null
+	if [ $? -ne 0 ] && brek
+	sleep 10
+done
+
+mail -s "mysql start $status"(主题) < zyclyy@sina.com.cn < mysql.log(正文)
+
+mysql -u root -p'901102' -s "自建数据库启动脚本" -e “select version();”
