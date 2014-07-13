@@ -1,0 +1,5 @@
+wget -T time -q(静默输出) --spider url
+
+
+curl -I(http头) -s(静默输出) url
+
