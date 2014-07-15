@@ -1,5 +1,13 @@
 wget -T time -q(静默输出) --spider url
 
-
 curl -I(http头) -s(静默输出) url
 
+nc命令：
+      1、nc -l port:监控端口
+      2、nc www.example.com port:连接端口
+      3、nc -l 1234 > filename.out:接收端口文件
+      4、nc www.example.com port < source file:发送文件至端口
+      5、nc -zv www.target.com num1-num2:检测目标端口是否打开
+      6、nc -p sourceport -w 5 www.targte.com destinationport:5秒内建立一条从源端口到目的端口的TCP连接
+      7、nc -u www.target.com port:建立一条udp连接
+      8、nc -s ipadddress www.target port:以ipaddress为源地址建立至目标端口的TCP链接。

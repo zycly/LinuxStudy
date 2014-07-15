@@ -76,3 +76,11 @@
       不指定定界符：
 	1、cut -c1-5 file:取出第一个字符至第五个字符
 	2、cut -c1-5,6-10 --output-delimiter " ":指定输出定界符
+
+ 12、seq命令：
+      seq -w:输入的字符串宽带相同,ps:01 02 03
+      seq -s:指定定界符
+
+ 13、文件清空：
+     1、 >file
+     2、cat /dev/null > file

@@ -14,7 +14,7 @@ ps -ef | grep mysqld | grep -v grep | wc -l
 while :
 do
 	killall -9 mysqld &> /dev/null
-	if [ $? -ne 0 ] && brek
+	if [ $? -ne 0 ] && break
 	sleep 10
 done
 
