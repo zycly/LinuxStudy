@@ -1,33 +1,6 @@
-1.awk '{str[$1]=str[$1]" "$2} {for(var in str) print var" "str[var]' file
-///////////////////典型的月经问题，注意$2不要写在双引号中////////////////
-注意:$1,2无需加双引号,否则会没有输出，需注意awk变量和shell变量值之间的传递。
+1、修改默认root密码：sudo passwd root(user)
 
-
-2.tcpdump命令小结：
- 1、针对特定网口抓包：tcpdump -i eth0
- 2、抓取特定数目的包：tcpdump -c 2 -i eth0
- 3、将抓到的包写入文件中：tcpdump -w file.pcap -i eth0(文件格式为pcap,用wireshark读取解析)
- 4、读取tcpdump保存文件：tcpdump -r file.pcap
- 5、抓包结果中包含抓包日期：tcpdump -n tttt -i eth0
- 6、抓取包的协议类型：tcpdump -i eth0 arp/tcp/udp
- 7、指定抓包端口：tcpdump -i eth0 port 22
- 8、抓取特定目标IP和端口的包：tcpdump -i eth0 dst xxx.xxx.xxx.xxx and port 22
-
-3、Linux网络配置
- 1、设置IP：ifconfig eth0 xxx.xxx.xxx.xxx netmask xxx.xxx.xxx.xxx
- 2、设置默认网关：route add default gw xxx.xxx.xxx.xxx
- 3、DNS服务器配置文件在/etc/resolv.conf中
- 4、网络配置文件在/etc/network/interfaces中
- 
-4、ubuntu防火墙设置(root权限)
- 1、ufw version:防火墙版本
- 2、ufw enable/disable：启动防火墙
- 3、ufw allow|deny service(22/tcp):打开或关闭端口
- 4、ufw status:防火墙状态
-
-5、修改默认root密码：sudo passwd root(user)
-
-6、SHELL视频学习
+2、SHELL视频学习
   1、cat >test.sh 直接在命令行编写脚本。
   2、source和.(执行脚本命令)：在命令行中执行脚本时会另外打开一个shell，环境变量独立。如果以.命令执行文件，子SHELL会将环境变量传递给主SHELL.
   3、TMOUT(环境变量)：超过指定值即退出当前shell
@@ -36,10 +9,10 @@
   6、${string/#(%)pattern/replacemet}:从字符开头处进行匹配替换
   7、${test:-unset}和${test:unset}的区别  
   8、执行删除文件命令时，必须先查看文件路径是否有值，如果没有值或者路径不正确，可能会导致灾难性的结果，因此在删除文件时最好先进行初值安全检查
-        find ${$PATH-/tmp} -type f print0 | xargs -0 rm -rf
+     find ${$PATH-/tmp} -type f print0 | xargs -0 rm -rf
 
 
-7、LINUX基础命令
+3、LINUX基础命令
   1、split -b size file   将文件切割为指定大小
   2、split -l number file 根据文件行数进行分割
   3、${variable %.*}:从变量右侧开始匹配删除
@@ -68,7 +41,7 @@
        12、echo xxx | grep "pattern" -B  NUM:输出匹配结果前的NUM行
        13、echo xxx | grep "pattern" -C  NUM:输出匹配结果前后的NUM行
 
- 11、cut命令:
+4、cut命令:
       指定定界符：
 	1、cut -f FIELD_LIST1,FIELD_LIST2  filename:提取多个字段或列
 	2、cut -f FIELD_LIST --complement filename:提取除FIELD_LIST以外的所有列
@@ -77,10 +50,10 @@
 	1、cut -c1-5 file:取出第一个字符至第五个字符
 	2、cut -c1-5,6-10 --output-delimiter " ":指定输出定界符
 
- 12、seq命令：
+5、seq命令：
       seq -w:输入的字符串宽带相同,ps:01 02 03
       seq -s:指定定界符
 
- 13、文件清空：
+6、文件清空：
      1、 >file
      2、cat /dev/null > file

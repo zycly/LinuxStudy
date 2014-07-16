@@ -2,7 +2,7 @@ wget -T time -q(静默输出) --spider url
 
 curl -I(http头) -s(静默输出) url
 
-nc命令：
+nc：
       1、nc -l port:监控端口
       2、nc www.example.com port:连接端口
       3、nc -l 1234 > filename.out:接收端口文件
@@ -11,3 +11,27 @@ nc命令：
       6、nc -p sourceport -w 5 www.targte.com destinationport:5秒内建立一条从源端口到目的端口的TCP连接
       7、nc -u www.target.com port:建立一条udp连接
       8、nc -s ipadddress www.target port:以ipaddress为源地址建立至目标端口的TCP链接。
+
+tcpdump命令小结：
+ 1、针对特定网口抓包：tcpdump -i eth0
+ 2、抓取特定数目的包：tcpdump -c 2 -i eth0
+ 3、将抓到的包写入文件中：tcpdump -w file.pcap -i eth0(文件格式为pcap,用wireshark读取解析)
+ 4、读取tcpdump保存文件：tcpdump -r file.pcap
+ 5、抓包结果中包含抓包日期：tcpdump -n tttt -i eth0
+ 6、抓取包的协议类型：tcpdump -i eth0 arp/tcp/udp
+ 7、指定抓包端口：tcpdump -i eth0 port 22
+ 8、抓取特定目标IP和端口的包：tcpdump -i eth0 dst xxx.xxx.xxx.xxx and port 22
+
+Linux网络配置
+ 1、设置IP：ifconfig eth0 xxx.xxx.xxx.xxx netmask xxx.xxx.xxx.xxx
+ 2、设置默认网关：route add default gw xxx.xxx.xxx.xxx
+ 3、DNS服务器配置文件在/etc/resolv.conf中
+ 4、网络配置文件在/etc/network/interfaces中
+ 
+ubuntu防火墙设置(root权限)
+ 1、ufw version:防火墙版本
+ 2、ufw enable/disable：启动防火墙
+ 3、ufw allow|deny service(22/tcp):打开或关闭端口
+ 4、ufw status:防火墙状态
+
+

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+
+read -p "please input the IP:" IP
+
+echo $IP | awk -v ip=$IP '{host[$1]=$2} END{print host[ip]}' /home/zyc/Desktop/hosts
+
+egrep "$IP" ~/Desktop/hosts | awk '{print $2}'
+
+awk 'BEGIN{var="'$1'"} {if(var==$1)print $2}' ~/Desktop/hosts
+
+awk '{if($1 ~/'$1'/)print $2}' ~/Desktop/hosts
+
+awk '{str[$1]=str[$1]" "$2} {for(var in str) print var" "str[var]' file
+///////////////////典型的月经问题，注意$2不要写在双引号中////////////////
+注意:$1,2无需加双引号,否则会没有输出，需注意awk变量和shell变量值之间的传递。
+
+如何在每行开头或结尾添加字符串：
+1、开头:sed "s/^/string\n&/g" file
+2、结尾:sed "s/$/&\nstring/g" file
+
+如何删除某列不符要求的行：
+1、awk ‘$num>date{next}1’
+
+
+
+
+
+
+
