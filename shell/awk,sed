@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 set -e
 
@@ -21,11 +21,38 @@ awk '{str[$1]=str[$1]" "$2} {for(var in str) print var" "str[var]' file
 2、结尾:sed "s/$/&\nstring/g" file
 
 如何删除某列不符要求的行：
-1、awk ‘$num>date{next}1’
+1、awk ‘$num>date{next}1’ = awk '$num>date{next} 1{print $0}'
+
+如何删除文件中重复的文本:
+   awk '!a[$0]++' file(先判断后执行加法)
+
+awk中连续几个括号如何执行:
+   awk '/pattern/{A} {B} {C}' file:满足条件pattern则顺序执行A,B,C，不满足条件则顺序执行{B}{C}
+
+
+awk中的真假：
+   1、数字0
+   2、空字符串
+   3、未定义的值
+   例：1、awk 'BEGIN{if(0) print "true";else print "false"}'     false  
+       2、awk 'BEGIN{if("0")}print "true";else print "false"}'   true
+       3、awk 'BEGIN{if( a=1 )print "true";else print "false"}'  true
+       4、awk 'BEGIN{if( a=a )print "true";else print "false"}'  false
+      (ps:先计算括号里的值在根据上述原则判断真假)
+
+awk,sed打印指定行:
+   1、awk 'NR>=1;NR<=5' file:打印一至五行；
+   2、awk '1;NR==10{exit}' file:打印前10行；
+   3、awk 'NR==NUM1||NR==NUM2' file:打印NUM1行或者NUM2行
+   4：sed -n '1,3p':打印一至三行；
+   5: sed -n '1p;3p':打印第一行和第三行
 
 
 
-
+awk小技巧:
+  1、awk 'i=!i':打印奇数行；
+  2、awk处理多文件：awk 'FNR==1{print};FNR==10{nextfile}' [abc].txt(ps:注意文件的表示)
+  3、FILENAM:awk '{print FILENAME,print $0}' [abc].txt:打印文件名
 
 
 

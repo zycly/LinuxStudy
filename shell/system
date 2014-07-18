@@ -1,0 +1,26 @@
+1、useradd:
+   -d:指定用户的主目录，与-m一起使用，创建主目录
+   -g:指定用户所属的用户组
+   -G:指定用户的所属的其他附加组
+   -u:指定用户的用户号
+
+   useradd -d /home/zyc -m zyc
+   useradd -g group -G admin,root zyc:指定用户zyc,它属于group组，同时又属于root和admin组,但是group是主组
+
+
+2、userdel：
+   -r:递归删除主目录
+
+3、groupadd:
+   -g GID:指定新用户户的组标示符
+   -o 一般与-g同时使用,表示新用户组的GID可以与系统已有的用户组GID相同
+
+   groupadd group
+   groupadd -g id group:增加新组group并指定标示符
+   
+   newgrp group:如果一个用户组同时属于多个用户组，可用此命令进行切换
+
+4、如何将脚本以service方式启动(service脚本开机自启动)
+   1、将启动脚本先放在/etc/init.d下(Most import)
+   2、添加service服务:sudo update-rc.d servicename defaults
+   3、删除service服务:sudo update-rc.d servicename remove   
