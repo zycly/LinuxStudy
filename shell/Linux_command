@@ -49,6 +49,8 @@
       不指定定界符：
 	1、cut -c1-5 file:取出第一个字符至第五个字符
 	2、cut -c1-5,6-10 --output-delimiter " ":指定输出定界符
+	
+      cut注意要点:-d选项需手动指定,默认值是tab键,非空格(important) --output-delimiter后接输出定界符时需加空格，否则无法输出。
 
 5、seq命令：
       seq -w:输入的字符串宽带相同,ps:01 02 03
