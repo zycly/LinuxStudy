@@ -23,4 +23,8 @@
 4、如何将脚本以service方式启动(service脚本开机自启动)
    1、将启动脚本先放在/etc/init.d下(Most import)
    2、添加service服务:sudo update-rc.d servicename defaults
-   3、删除service服务:sudo update-rc.d servicename remove   
+   3、删除service服务:sudo update-rc.d servicename remove  
+
+5、centos下查看service状态：
+   systemctl status servicename.service
+ 
