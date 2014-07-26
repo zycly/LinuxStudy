@@ -27,4 +27,6 @@
 
 5、centos下查看service状态：
    systemctl status servicename.service
+
+6、去除root权限提示:sudo sh -c "echo 3 > /proc/sys/vm/drop_caches"
  
