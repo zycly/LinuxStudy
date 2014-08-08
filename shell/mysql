@@ -1,0 +1,2 @@
+1、单实例启动mysql(忘记root密码)：mysqld_safe --skip-grant-table
+2、show command\G

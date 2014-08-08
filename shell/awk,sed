@@ -46,7 +46,7 @@ awk,sed打印指定行:
    3、awk 'NR==NUM1||NR==NUM2' file:打印NUM1行或者NUM2行
    4：sed -n '1,3p':打印一至三行；
    5、sed -n '1p;3p':打印第一行和第三行
-
+   6、sed -n '1~2p':打印奇数行
 
 awk选择性打印(grep -A-B实现)：
 
@@ -81,3 +81,4 @@ awk小技巧:
 sed:
   1、删除文档中的空白行：sed '/^/s*$/d' file; sed '/^$/d file'
   2、删除文档开头的空白：sed 's/^\s\+//' file;sed -r 's/^\s+//' file
+  3、删除文件匹配后的N行: sed '/address/,+N{//b,d}' file
