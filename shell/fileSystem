@@ -1,0 +1,16 @@
+1、扇区->磁柱(第一个扇区即为MBR(446byte)
+2、各接口在Linux文件中的命名：
+   /dev/sd[a-p][1-15]:为SCI,SATA,USB,FLASH等接口的磁盘文件名
+   /dev/hd[a-d][1-63]:为IDE接口的磁道文件名(硬盘)。
+3、文件系统三大组成部分：inode(文件节点),block(数据存储),superblock(对所有文件信息的汇总)。Linux采用索引式文件系统。
+4、通过inode bitmap和block bitmap可查看当前节点号是否已经使用。block大小:1K,2K,4K(固定大小).
+5、dumpe2fs:查看设备文件的使用情况，参数为设备文件名(/dev/sda)。
+6、ls -i:显示目录的inode号
+7、inode大小:128byte,有12个直接指向，1个间接指向，1个双间接和1个三间接(指向BLOCK号)
+8、目录的存储结构：文件系统分配给目录一个inode和至少一块block，inode记录该目录的相关权限和属性，block记录这个目录下的文件名与该文件名占用的inode号码数据(tips:inode不存储文件名)     IMPORTANT
+9、创建文件的执行过程:
+   1、先确定用户对于欲新增档案的目录是否具有w与x的权限,若有的话才能新增
+   2、根据inode bitmap找到没有使用的inode号码，并将新档案的权限/属性写入
+   3、根据block bitmap找到没有使用的block号码，并将实际的数据写入block中，且更新inode的block指向数据。
+   4、将刚刚写入的inode与block数据同步更新inode bitmap与block bitmap，并更新superblock的内容。
+10、常用的文件系统:ext3,tmpfs,proc文件系统：除ext3外的特殊文件系统大部分是存在于内存之中，且不会占据硬盘空间。
