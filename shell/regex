@@ -1,0 +1,1 @@
+1、In basic regular expressions the mata-characters ?,+,{,|,(,and ) lose their special meaning;instead use the backslashed versions \?,\+,\{,\|,\(,and \).

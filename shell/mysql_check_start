@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #数据库正常启动时端口有一个，进程有两个
+show command\G
 
 portnum=`netstat -lnt | grep 3306 | awk -F[ :]+ {print $5}`
 
