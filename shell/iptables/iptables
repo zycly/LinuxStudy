@@ -1,0 +1,35 @@
+1、iptables启动方式：systemctl start/stop/restart iptables.service
+
+2、iptables保存：
+   1、service iptables save:保存当前iptables命令设置内容到/etc/sysconfig/iptables中(正解)。同时将原来iptables的内容保存至iptables.save中。
+   2、iptables-save：结果与service iptables save相反，保存当前命令内容至iptables.save,iptables文件内容不变。
+
+3、设置chain默认规则注意(P是大写不是小写，默认的意思)：
+   iptables -P INPUT   ACCEPT
+   iptables -P OUTPUT  ACCEPT
+   iptables -P FORWARD ACCEPT
+   以上三条规则并非干扰其他规则的实施，仅在该chain表中所有规则均不符合才会执行
+   如果想修改以上规则直接将规则重新一遍即可,不需要用-R选项
+
+4、-L:列出表中规则
+   -F:清空所有内置链,不指定的话表示清除所有
+   -n：数字格式显示ip和端口
+   --line-number：显示行号
+   一般用法:iptables -L -n -t NAT,不要使用iptbles -Ln会显示错误,iptables -nL不会出此问题。
+   在iptables中选项尽量不要连写。
+
+5、iptables首要选项：
+   -A:append附加原则，将新增的原则添加到链的尾部
+   -I[n]:插入为第n条原则,默认插入链的首部
+   iptables -I INPUT num -p tcp -s 192.168.0.0/16 -m state --state NEW -m tcp --dport 873 -j ACCEPT
+   -C[n]:修改第n条原则:
+   iptables -C INPUT -p tcp -m -tcp --dport 873 drop
+   -D[n]:删除第n条原则：
+   iptales -D INPUT NUM
+
+6、iptables -I INPUT -s xx.xx.xx.xx -m state --state NEW -m tcp --dport 873 -j ACCEPT
+   -m:state:启用模式匹配
+   --state NEW,ESTABLISHED,RELATED(FTP端口):匹配具体的模式,--state表示模式名
+   -m tcp:匹配tcp模块,用于以后的参数,如dport
+
+
