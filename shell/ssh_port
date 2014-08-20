@@ -1,0 +1,7 @@
+1、进入/etc/ssh目录下
+
+2、修改sshd_config,将port前的注销符号去掉
+
+3、确定未使用的端口号为ssh的新端口,通过grep PORT /etc/services寻找合适端口,一定要选择未使用过的端口号
+
+4、防火墙对此端口放行(MOST IMPORTANT)
