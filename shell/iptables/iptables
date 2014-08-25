@@ -32,4 +32,15 @@
    --state NEW,ESTABLISHED,RELATED(FTP端口):匹配具体的模式,--state表示模式名
    -m tcp:匹配tcp模块,用于以后的参数,如dport
 
-7、TCP三次连接过程中,仅发送状态为NEW,其他均为ESTABLISHED状态。
+7、TCP三次连接过程中,仅第一次发送状态为NEW,其他均为ESTABLISHED状态,注意iptables中的状态匹配不同于TCP三次握手状态,全连接和半连接概念的区分
+
+8、状态匹配文件(可查看当前的状态表):/proc/net/nf_conntrack /por/sys/net/nf_conntrack_max
+
+9、多端口规则匹配:
+   -m multiport:--destination-ports,--source-ports
+
+10、ip地址范围匹配：
+   -m iprange:--src-range xxx.xxx.xxx.xxx-xxx.xxx.xxx,--dst-range
+
+11、扩展模块connlimit:
+    --connlimit-above number:设定单IP连接数上限
