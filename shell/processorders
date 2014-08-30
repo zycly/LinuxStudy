@@ -1,0 +1,19 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`rick`@`localhost` PROCEDURE `processorders`()
+begin 
+	declare i varchar(10); 
+	declare ordernumbers cursor 
+	for 
+		select sname from customer; 
+	create table if not exists cust(
+		sname varchar(10));
+	open ordernumbers; 
+	fetch ordernumbers into i; 
+	insert into cust(sname) values(i);
+	close ordernumbers; 
+end
