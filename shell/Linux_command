@@ -9,7 +9,7 @@
   6、${string/#(%)pattern/replacemet}:从字符开头处进行匹配替换
   7、${test:-unset}和${test:unset}的区别  
   8、执行删除文件命令时，必须先查看文件路径是否有值，如果没有值或者路径不正确，可能会导致灾难性的结果，因此在删除文件时最好先进行初值安全检查
-     find ${$PATH-/tmp} -type f print0 | xargs -0 rm -rf
+     find ${PATH:-/tmp} -type f print0 | xargs -0 rm -rf
 
 
 3、LINUX基础命令
@@ -70,5 +70,39 @@
         2、目录
            和文件类似，但不需要进行加减处理，即实际权限=777-umask
 	
-      
+8、更新内核
+   cd /usr/src
+   gzip -cd patchxx.gz | patch -p0      
+
+9、expr:
+   匹配字符串开头的子串长度:
+       expr match "$string " '$substring'(正则表达式)
+       expr "$string" : '$substring'
+   索引:
+       expr index $string $substring:第一次匹配的位置
+   字符串长度：
+       expr length $string
+   截取字符串：
+       expr substr $stirng $position $length
+   提取字符串：
+      从开头提取: expr match "$string" '\($substring\)'
+      从结尾提取: expr match "$string" '.*\($substring\)'
+
+10、子串替换：
+    ${string/substring/replacement}:替换第一个匹配
+    ${string//substring/replacement}:替换所有的匹配
+   
+11、变量替换：
+    ${parameter-default}:如果变量parameter没被声明,那么就使用默认值
+    ${parameter:-default}:如果变量parameter没被设置,那么就使用默认值
+    
+12、指定变量类型：
+    declare选项:
+        1、declare -r var:声明只读变量
+        2、declare -i var:声明整数
+        3、declare -a array:声明数组
+        4、declare -f:列出当前所有函数
+
+
+
 
