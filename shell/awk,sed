@@ -1,10 +1,14 @@
-bin/bash
+#!/bin/bash
 
 set -e
 
 read -p "please input the IP:" IP
 
+将系统变量传递至awk中
 echo $IP | awk -v ip=$IP '{host[$1]=$2} END{print host[ip]}' /home/zyc/Desktop/hosts
+
+将awk变量传至系统变量中：
+echo "14-Oct-2012" | awk '{filename=$0;"date +%F -d "filename""|getline b;print b}'
 
 egrep "$IP" ~/Desktop/hosts | awk '{print $2}'
 
@@ -46,7 +50,7 @@ awk,sed打印指定行:
    3、awk 'NR==NUM1||NR==NUM2' file:打印NUM1行或者NUM2行
    4：sed -n '1,3p':打印一至三行；
    5、sed -n '1p;3p':打印第一行和第三行
-   6、sed -n '1~2p':打印奇数行
+
 
 awk选择性打印(grep -A-B实现)：
 
@@ -68,7 +72,7 @@ awk选择性打印(grep -A-B实现)：
 	awk '/pattern/{t++;k=n}--k>0&&t==2'
 
    5、匹配两个pattern模式之间的文本:awk '/pattern1/,/pattern2/' file
-   6、匹配两个pattern模式之间的文本(不包括屁匹配行):awk '/pattern1/{getline}/pattern2/{exit}1'
+   6、匹配两个pattern模式之间的文本(不包括匹配行):awk '/pattern1/{getline}/pattern2/{exit}1'
    7、匹配某范围之间符合正则表达式的数据(不包括匹配行)：awk '/pattern1/{p=1;getline}/pattern1/{p=0}p==1{array[i++]}END{for(var in array){ if(array[var] ~/pattern3/) print array[j]}'  file
 
 awk小技巧:
@@ -77,8 +81,26 @@ awk小技巧:
   3、FILENAM:awk '{print FILENAME,print $0}' [abc].txt:打印文件名
   4、筛选特定格式文件中存在符合正则表达式的数据(精辟):awk 'BEGIN{RS="定界符1"} /PATTERN/{print RS,$0}' file
      file文件格式：start  xxx  xxx end start  xxx   xxx  end
+  5、IFS设置:awk -F '[,.:]+' '{}' FILE
 
 sed:
   1、删除文档中的空白行：sed '/^/s*$/d' file; sed '/^$/d file'
   2、删除文档开头的空白：sed 's/^\s\+//' file;sed -r 's/^\s+//' file
-  3、删除文件匹配后的N行: sed '/address/,+N{//b,d}' file
+  3、为文本添加行号：sed '=' file | sed '{N;s/\n//}'
+  4、跳转命令:
+     sed '{/pattern/b tag;s///;:tag s///}' file
+     echo "1234567" | sed '{
+     :start
+     s/\(.*[0-9]\)\([0-9]\{3\}\)/\1.\2
+     t start
+     }'
+
+sed中单双引号的区别:
+   EX:sed -i "1i$(basename $file)" $file
+   上式中需注意1、i后面不需要\(经测试,\符号有无均可) 2、该式中只能引用双引号而非单引号;
+   单引号:shell处理命令时,对其中的内容部做任何处理。
+   双引号:shell处理命令时,要对其中的内容进行算术扩展.一般在引入变量时需要用双引号。
+	
+
+
+
