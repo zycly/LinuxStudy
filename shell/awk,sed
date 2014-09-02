@@ -55,21 +55,21 @@ awk,sed打印指定行:
 awk选择性打印(grep -A-B实现)：
 
    1、pattrn匹配时，打印前一行：
-	awk '!/pattern/{var=$0}/pattern/{print var}' file
-	awk '/pattern/{print $var}{var=$0}' file
+      awk '!/pattern/{var=$0}/pattern/{print var}' file
+      awk '/pattern/{print $var}{var=$0}' file
 
    2、pattern匹配时打印前n行：
-	awk '{array[NR]=$0}/pattern/{p=NR}END{for(i=p-n;i<p;i++) print array[$i]}' file
-	awk '{array[NR]=$0}/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}
-	awk '/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}{array[NR%N]=$0}' file(精辟)
+      awk '{array[NR]=$0}/pattern/{p=NR}END{for(i=p-n;i<p;i++) print array[$i]}' file
+      awk '{array[NR]=$0}/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}
+      awk '/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}{array[NR%N]=$0}' file(精辟)
 
    3、pattern匹配时打印后n行：
-	awk '/pattern/{p=1;x=NR}p&&NR-x>0&&NR-x<=n' file
-	awk '/pattern/{p=n;next}--i>0'(精辟)
+      awk '/pattern/{p=1;x=NR}p&&NR-x>0&&NR-x<=n' file
+      awk '/pattern/{p=n;next}--i>0'(精辟)
 
    4、匹配pattren第二次时打印后N行:
-	awk ‘/pattern/{t++;x=NR}t==2&&NR-x>0&&NR-x<=2’ file
-	awk '/pattern/{t++;k=n}--k>0&&t==2'
+      awk ‘/pattern/{t++;x=NR}t==2&&NR-x>0&&NR-x<=2’ file
+      awk '/pattern/{t++;k=n}--k>0&&t==2'
 
    5、匹配两个pattern模式之间的文本:awk '/pattern1/,/pattern2/' file
    6、匹配两个pattern模式之间的文本(不包括匹配行):awk '/pattern1/{getline}/pattern2/{exit}1'
@@ -101,6 +101,10 @@ sed中单双引号的区别:
    单引号:shell处理命令时,对其中的内容部做任何处理。
    双引号:shell处理命令时,要对其中的内容进行算术扩展.一般在引入变量时需要用双引号。
 	
+awk调用system函数:
+  awk 'BEGIN{while(system("ls -al")| getline line){print line}}':此处system外没加双引号。
+
+awk中getline的用法:
 
 
 
