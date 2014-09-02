@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#sudo select-editor
+#tar -zxvf file 解压文件夹
+
+
+mysql=`which mysql`
+user="rick"
+datebase="manage"
+table="free"
+
+query=`free | grep "Mem:" | awk '{print $2,","$3,","$4,","$6,","$7}'`
+
+sum=`$mysql -u $user $datebase <<EOF | tail -n +2
+insert into $table(TOTAL,USED,FREE,BUFFER,CACHE) VALUES($query);
+select last_insert_id();
+EOF`
+
+$mysql -u $user $datebase <<EOF
+select * from $table;
+EOF
+
+if [ $sum -gt 40 ]
+then
+	mysqldump -u $user $datebase $table | tar -czvf ~/桌面/archive/archive_$$.tar.gz -
+$mysql -u $user $datebase <<EOF
+truncate $table;
+EOF
+	size=`du -m| awk '{print $1}'`
+	if [ $size -gt 2 ]
+	then 
+		cd ~/桌面/archive
+		rm archive*
+	fi
+	
+fi

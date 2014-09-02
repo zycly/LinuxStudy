@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+#默认情况下第一个空参数表示当前的工作目录
+
+if [ $# -ne 1 ]
+then 
+	echo "Usage is `basename $0` basepath"
+fi
+
+path=$1
+
+echo `ls $path`
+
+declare -A statarray
+
+while read line
+do
+	ftype=`file -b "$line" | cut -d, -f1`
+
+	let statarray["$ftype"]++
+
+done < <(find $path -type f -print)
+
+for ftype in "${!statarray[@]}"
+do
+	echo $ftype : ${statarray["$ftype"]}
+done

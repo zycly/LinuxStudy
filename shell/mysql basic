@@ -1,0 +1,56 @@
+1、显示数据库：show databases;
+
+2、建数据库：create database 数据库名
+
+3、建数据表：create table    表名（
+	列名 数据类型）
+   建数据表之前首先判断表是否存在
+	drop table 表名 if exists
+
+4、显示数据表： show tables
+
+5、删除库： drop database 库名
+
+6、删除表： drop table    表名
+
+7、显示表结构：describe 表名
+
+8、增加字段： alter table 表名 add 字段名 类型
+
+9、删除字段： alter table 表名 drop 字段名
+
+10、修改字段的属性：alter table 表名 modify 字段名 属性
+
+11、增加主键 ：alter table 表名 add primary key（字段名）
+
+12、删除主键：alter table 表名 drop primary key（字段名）
+
+13、增加外键：alter table 表名
+	      add  constraint 字段名
+	      foreign key（字段名） references 表名（字段名）
+
+14、备份数据表：mysqldump -h 主机名 -u用户名 -p口令 数据库 表名 > 文本文件
+
+15、恢复数据表：mysql -h 主机名 -u 用户名 -p口令 数据库 < 文本文件
+
+16、备份数据表：select * from 表名 into outfile ‘路径名文件’
+
+17、恢复数据表：load data infile ‘路径及文件名’ into talbe 表名
+
+18、删除表记录：delete from 表名（删除表的所有记录）
+    truncate table 表名（删除记录，不删除表结构）
+
+19、CSV数据的导入：load data infile ‘路径及文件名’ into table 表名 fields terminated by ‘分隔符’
+
+20、创建用户并赋予权限： GRANT 权限名1,权限名2 ON 数据库名.表名 TO 用户名@‘IP地址/子网掩嘛’or‘%（表示可从任意主机进行连接）’ IDENTIFIED BY ‘密码’
+
+21、剥夺用户权限：REVOKE 权限 ON 数据库名.表名 FROM 操作地址（与GRANT类似）
+
+22、删除用户（附带删除用户权限）：先通过REVOKE删除对应权限；use mysql； delete from user where user=“用户名” ；FLUSH PRIVILEGES
+
+22、查看运行服务器状态： mysqladmin -u root version
+
+23、查看正在运行的服务器配置选项：mysqladmin variables
+
+25、修改用户密码（在进入数据库的前提下）：SET password=PASSWORD（‘密码’）；
+
