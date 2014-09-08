@@ -1,11 +1,7 @@
-#!/bin/bash
-
 set -e
 
-read -p "please input the IP:" IP
-
 将系统变量传递至awk中
-echo $IP | awk -v ip=$IP '{host[$1]=$2} END{print host[ip]}' /home/zyc/Desktop/hosts
+awk -v ip=$IP '{host[$1]=$2} END{print host[ip]}' /home/zyc/Desktop/hosts
 
 将awk变量传至系统变量中：
 echo "14-Oct-2012" | awk '{filename=$0;"date +%F -d "filename""|getline b;print b}'
@@ -35,9 +31,9 @@ awk中连续几个括号如何执行:
 
 
 awk中的真假：
-   1、数字0
-   2、空字符串
-   3、未定义的值
+  1、数字0
+  2、空字符串
+  3、未定义的值
    例：1、awk 'BEGIN{if(0) print "true";else print "false"}'     false  
        2、awk 'BEGIN{if("0")}print "true";else print "false"}'   true
        3、awk 'BEGIN{if( a=1 )print "true";else print "false"}'  true
@@ -45,35 +41,35 @@ awk中的真假：
       (ps:先计算括号里的值在根据上述原则判断真假)
 
 awk,sed打印指定行:
-   1、awk 'NR>=1;NR<=5' file:打印一至五行；
-   2、awk '1;NR==10{exit}' file:打印前10行；
-   3、awk 'NR==NUM1||NR==NUM2' file:打印NUM1行或者NUM2行
-   4：sed -n '1,3p':打印一至三行；
-   5、sed -n '1p;3p':打印第一行和第三行
+  1、awk 'NR>=1;NR<=5' file:打印一至五行；
+  2、awk '1;NR==10{exit}' file:打印前10行；
+  3、awk 'NR==NUM1||NR==NUM2' file:打印NUM1行或者NUM2行
+  4：sed -n '1,3p':打印一至三行；
+  5、sed -n '1p;3p':打印第一行和第三行
 
 
 awk选择性打印(grep -A-B实现)：
 
-   1、pattrn匹配时，打印前一行：
+  1、pattrn匹配时，打印前一行：
       awk '!/pattern/{var=$0}/pattern/{print var}' file
       awk '/pattern/{print $var}{var=$0}' file
 
-   2、pattern匹配时打印前n行：
+  2、pattern匹配时打印前n行：
       awk '{array[NR]=$0}/pattern/{p=NR}END{for(i=p-n;i<p;i++) print array[$i]}' file
       awk '{array[NR]=$0}/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}
       awk '/pattern/{for(p=NR-n;p<NR;p++) print array[p];exit}{array[NR%N]=$0}' file(精辟)
 
-   3、pattern匹配时打印后n行：
+  3、pattern匹配时打印后n行：
       awk '/pattern/{p=1;x=NR}p&&NR-x>0&&NR-x<=n' file
       awk '/pattern/{p=n;next}--i>0'(精辟)
 
-   4、匹配pattren第二次时打印后N行:
+  4、匹配pattren第二次时打印后N行:
       awk ‘/pattern/{t++;x=NR}t==2&&NR-x>0&&NR-x<=2’ file
       awk '/pattern/{t++;k=n}--k>0&&t==2'
 
-   5、匹配两个pattern模式之间的文本:awk '/pattern1/,/pattern2/' file
-   6、匹配两个pattern模式之间的文本(不包括匹配行):awk '/pattern1/{getline}/pattern2/{exit}1'
-   7、匹配某范围之间符合正则表达式的数据(不包括匹配行)：awk '/pattern1/{p=1;getline}/pattern1/{p=0}p==1{array[i++]}END{for(var in array){ if(array[var] ~/pattern3/) print array[j]}'  file
+  5、匹配两个pattern模式之间的文本:awk '/pattern1/,/pattern2/' file
+  6、匹配两个pattern模式之间的文本(不包括匹配行):awk '/pattern1/{getline}/pattern2/{exit}1'
+  7、匹配某范围之间符合正则表达式的数据(不包括匹配行)：awk '/pattern1/{p=1;getline}/pattern1/{p=0}p==1{array[i++]}END{for(var in array){ if(array[var] ~/pattern3/) print array[j]}'  file
 
 awk小技巧:
   1、awk 'i=!i'; awk 'NR%2==1{next}1':打印奇数行；
