@@ -27,6 +27,12 @@ Linux网络配置
  2、设置默认网关：route add default gw xxx.xxx.xxx.xxx
  3、DNS服务器配置文件在/etc/resolv.conf中
  4、网络配置文件在/etc/network/interfaces中
+ 5、ip route add xxx.xxx.xxx.xxx via gateway dev
+ 6、route add xxx.xxx.xxx.xxx gw xxx.xxx.xxx.xxx 
+ 7、修改网卡信息:ip -s link set device option
+    重命名网卡:ip -s link set eth0 down
+               ip link set eth0 name vbird
+               systemctl restart network.service
  
 ubuntu防火墙设置(root权限)
  1、ufw version:防火墙版本
@@ -34,4 +40,5 @@ ubuntu防火墙设置(root权限)
  3、ufw allow|deny service(22/tcp):打开或关闭端口
  4、ufw status:防火墙状态
 
-
+Traceroute:默认使用UDP发送报文,Traceroute -n baidu.com
+ 可使用TCP报文发送:Traceroute -w 1 -n -T baidu.com
