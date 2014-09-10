@@ -2,10 +2,10 @@
 
 2、建数据库：create database 数据库名
 
-3、建数据表：create table    表名（
+3、建数据表：create table if not exists  表名（
 	列名 数据类型）
    建数据表之前首先判断表是否存在
-	drop table 表名 if exists
+	drop table if not exists 表名
 
 4、显示数据表： show tables
 
@@ -41,6 +41,7 @@
     truncate table 表名（删除记录，不删除表结构）
 
 19、CSV数据的导入：load data infile ‘路径及文件名’ into table 表名 fields terminated by ‘分隔符’
+    select * from table into outfile 'address' fiedls terminated by 'xxx'
 
 20、创建用户并赋予权限： GRANT 权限名1,权限名2 ON 数据库名.表名 TO 用户名@‘IP地址/子网掩嘛’or‘%（表示可从任意主机进行连接）’ IDENTIFIED BY ‘密码’
 
